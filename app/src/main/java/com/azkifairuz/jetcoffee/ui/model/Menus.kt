@@ -1,4 +1,6 @@
-package com.azkifairuz.jetcoffee
+package com.azkifairuz.jetcoffee.ui.model
+
+import com.azkifairuz.jetcoffee.R
 
 data class Menus(
     val image: Int,

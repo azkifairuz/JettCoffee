@@ -1,7 +1,8 @@
-package com.azkifairuz.jetcoffee
+package com.azkifairuz.jetcoffee.ui.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.azkifairuz.jetcoffee.R
 
 data class Categories(
     @DrawableRes val imageCategory: Int,
