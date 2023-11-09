@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.azkifairuz.jetcoffee.ui.components.CategoryItem
+import com.azkifairuz.jetcoffee.ui.components.MenuItem
 import com.azkifairuz.jetcoffee.ui.theme.JetCoffeeTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,22 +46,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun JetCoffeeApp() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+        Banner()
+        SectionText(title = stringResource(R.string.section_category))
+        CategoryRow()
+        SectionText(title = stringResource(id = R.string.section_favorite_menu))
+        MenuRow()
     }
 }
 
 //home
 @Composable
-fun Home(modifier: Modifier = Modifier) {
-        Column {
-            Banner()
-            SectionText(title = stringResource(R.string.section_category))
-            CategoryRow()
-        }
+fun Home(
+    title:String,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column(modifier) {
+        SectionText(title = title,modifier)
+        content()
+    }
 }
 
 @Preview(showBackground = true)
@@ -116,6 +123,21 @@ fun CategoryRow(
             CategoryItem(categories = category)
         }
     }
-    
+}
+
+@Composable
+fun MenuRow(
+    modifier: Modifier = Modifier
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier.padding(vertical = 16.dp)
+    ){
+        items(dummyMenu,key = {it.title}){ menu ->
+            MenuItem(menus = menu)
+        }
+    }
+
 }
 
